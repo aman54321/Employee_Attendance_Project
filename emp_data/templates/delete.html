@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}
+    <title>Delete</title>
+{% endblock title %}
+
+{% block content %}
+<div>
+<h1 class="heading">Delete Employee Information</h1>
+<div class="mb-4">
+<div class="container">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <br><br>
+        <div>
+            <b>Are you sure you want to delete "{{ emp.name }}"?</b>
+        </div><br>
+        <p>
+            <a class="links" href="{% url 'show_all_data' %}"> <-- Go back</a>
+        </p>
+        <p>
+            <input type="submit" class="btn-1" value="Confirm">
+        </p>
+    </form>
+</div>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %}
+    <title>Sign Up</title>
+{% endblock title %}
+{% block content %}
+<h1 class="heading">Register Yourself</h1>
+<form class="row g-3 sign" action="register" method="POST">
+    {% csrf_token %}
+    {% if error  %}
+        <div style="color:rgb(255, 0, 0); background-color:rgb(211, 151, 151); margin-left: 7rem ; width:150px">
+        {{error}}
+        </div>
+        {% endif %}
+    <div class="col-md-6">
+      <label for="inputname" class="form-label">Name</label>
+      <input type="text" name="name" value="{{values.name}}" class="form-control" id="inputname" placeholder="Name">
+    </div>
+    <div class="col-md-6">
+      <label for="inputEmp" class="form-label">Employee Id</label>
+      <input type="text" name="e_id" value="{{values.e_id}}" class="form-control" id="inputEmp" placeholder="Employee Id">
+    </div>
+    <div class="col-6">
+      <label for="inputEmail1" class="form-label">Email</label>
+      <input type="email" name="email" value="{{values.email}}" class="form-control" id="inputEmail1" placeholder="Email">
+    </div>
+    <div class="col-md-6">
+        <label for="inputuser" class="form-label">User Name</label>
+        <input type="text" name="username" value="{{values.username}}" class="form-control" id="inputuser" placeholder="User Name">
+      </div>
+    <div class="col-12">
+      <label for="inputDesignation" class="form-label">Designation</label>
+      <input type="text" name="designation" value="{{values.designation}}" class="form-control" id="inputDesgination" placeholder="Designation">
+    </div>
+    <div class="col-md-6">
+      <label for="inputPassword4" class="form-label">Password</label>
+      <input type="password" name="password1" class="form-control" id="inputPassword4" placeholder="Password">
+    </div>
+    <div class="col-md-6">
+        <label for="inputPassword4" class="form-label">Confirm Password</label>
+        <input type="password" name="password2" class="form-control" id="inputPassword4" placeholder="Confirm Password">
+    </div>
+    <div class="col-12">
+      <button type="submit" class="btn">Sign Up</button>
+    </div>
+  </form>
+{% endblock %}
+
+
+
+
+
+
+

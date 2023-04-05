@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}
+    <title>Edit</title>
+{% endblock title %}
+{% block content %}
+<h1 class="heading">Edit Employee Information</h1>
+<div class="container">
+            <form action=""  method="POST">
+                {% csrf_token %}
+                    <div class="mb-3 form-col">
+                        <label for="From" class="form-label-1">Emp_id:</label>
+                        {{form.emp_id}}<br>
+                    </div>
+                    <div class="mb-3 form-col">
+                        <label for="From" class="form-label-1">Name:</label>
+                        {{form.name}}<br>
+                    </div>
+                    <div class="mb-3 form-col">
+                        <label for="From" class="form-label-1">Date:</label>
+                      {{form.date}}<br>
+                      </div>
+                    <div class="mb-3 form-col">
+                      <label for="From" class="form-label-1">Check-In:</label>
+                        {{form.check_in}}<br>
+                    </div>
+                    <div class="mb-3 form-col">
+                        <label for="From" class="form-label-1">Check-Out:</label>
+                         {{form.check_out}}
+              </div>
+                <button class="btn-1" type="submit">Submit</button><br><br>
+                    <a class="links" href="{% url 'show_all_data' %}"> <-- Go back</a>
+                </form>
+</div>
+{% endblock content %}
+
+
+
+
+
+
+
+
+

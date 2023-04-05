@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}
+    <title>User List</title>
+{% endblock title %}
+
+{% block content %}
+{% load emp_extras%}
+<div class="main">
+<div class="col-md-12">
+    <h1 class="heading">User List</h1>
+</div>
+<button class="btn-4"><a class="link" href="{% url 'show_all_data' %}">HOME</a></button>
+<div class="container_1">
+
+    <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Employee Id</th>
+        <th scope="col">Name</th>
+        <th scope="col">E-Mail</th>
+        <th scope="col">Designation</th>
+        <th scope="col">User Name</th>
+      </tr>
+    </thead>
+        {% for k in data %}
+        <tbody>
+            <tr>
+                <td>{{ k.e_id }}</td>
+                <td>{{ k.name }}</td>
+                <td>{{ k.email}}</td>
+                <td>{{ k.designation}}</td>
+                <td>{{ k.username}}</td>
+                
+            </tr>
+        </tbody>
+        {% endfor %}
+  </table>
+
+</div>
+</div>
+{% endblock %}

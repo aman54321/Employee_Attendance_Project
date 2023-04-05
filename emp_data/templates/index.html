@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% block title %}
+    <title>Employee Information</title>
+{% endblock title %}
+
+{% block content %}
+{% load emp_extras%}
+<div class="main">
+<h1 class="heading">Employee Information</h1>
+<button class="btn-3"><a class="link" href="{% url 'logout' %}">Log Out</a></button><br><br>
+
+<form method="get">
+    <div class="row">
+    <div class="col-5">
+        <label for="name" class="form-label-1">Name:</label>
+        <input type="name" value="{{val_1.name}}"  name="name" placeholder="Search By Name..." class="form-control-2">  
+        <button type="submit" class="btn-1 ms-2">Search</button>
+        <datalist id="names">
+            {% for i in data_obj%}
+            <option value={{i.name}}>
+                {% endfor %}
+        </datalist>  
+    </div>
+    <div class="col-7 con1">
+        <button class="btn-1"><a class="link" href="{% url 'show_all_data' %}">View Data</a></button>
+        <button class="btn-1 ms-2" onclick="tableToCSV()">Export Data</button><br><br>
+    </div>
+    </div>
+    <div class="row">
+        <div class="col-8">
+        <label for="date" class="form-label-1">Date:</label>
+        <input type="date" value="{{val_1.date}}" name="date" class="form-control-2">  
+        <button type="submit" class="btn-1 ms-2">Search</button>
+        </div>  
+        <div class="col-4 con2">
+            <button class="btn-1"><a class="link" href="{% url 'user_data' %}">User List</a></button>
+        </div>
+    </div>
+
+</form>
+
+<div class="container_1">
+    <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Employee Id</th>
+        <th scope="col">First Name</th>
+        <th scope="col">Date</th>
+        <th scope="col">Check-In</th>
+        <th scope="col">Check-Out</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+        {% for i in data_obj %}
+        <tbody>
+            <tr>
+                <td>{{ i.emp_id }}</td>
+                <td>{{ i.name }}</td>
+                <td>{{ i.date|date:'d-m-y'}}</td>
+                <td>{{ i.check_in}}</td>
+                <td>{{ i.check_out}}</td>
+                <td> <button class="btn-2"><a class="links" href="{% url 'edit' i.pk %}">Edit</a></button>
+                </td>
+                <td> <button class="btn-2"><a class="links" href="{% url 'delete' i.pk %}">Remove</a></button></td>
+            </tr>
+        </tbody>
+        {% endfor %}
+  </table>
+</div><br>
+<div class="pagination">
+    <span class="step-links">
+        {% if data_obj.has_previous %}
+            <a class="page" href="{% my_url data_obj.previous_page_number 'page' request.GET.urlencode %}"> Previous</a>
+            {% else %}
+            <a class="page" href="#" tabindex="-1" aria-disabled="True">Previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{data_obj.number}} of {{data_obj.paginator.num_pages}}
+            </span>
+
+        {% if data_obj.has_next %}
+            <a class="page" href="{% my_url data_obj.next_page_number 'page' request.GET.urlencode %}"> Next</a>
+            {% else %}
+            <a class="page" href="#" tabindex="-1" aria-disabled="True">Next</a>
+        {% endif %}
+    </span>
+  </div>    
+</div>
+</div>
+<script>
+
+    function tableToCSV() {
+        var csv_data = [];
+        var rows = document.getElementsByTagName('tr');
+        for (var i = 0; i < rows.length; i++) {
+            var cols = rows[i].querySelectorAll('td,th');
+            var csvrow = [];
+            for (var j = 0; j < cols.length-2; j++) { 
+                csvrow.push(cols[j].innerHTML);
+            }
+            csv_data.push(csvrow.join(","));
+        }
+        csv_data = csv_data.join('\n');
+        downloadCSVFile(csv_data);
+    }
+    function downloadCSVFile(csv_data) {
+        CSVFile = new Blob([csv_data], {
+            type: "text/csv"
+        });
+        var temp_link = document.createElement('a');
+        temp_link.download = "data.csv";
+        var url = window.URL.createObjectURL(CSVFile);
+        temp_link.href = url;
+        temp_link.style.display = "none";
+        document.body.appendChild(temp_link);
+        temp_link.click();
+        document.body.removeChild(temp_link);
+    }
+   
+</script>
+{% endblock %}
