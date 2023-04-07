@@ -6,6 +6,7 @@ from .forms import employee_data_Form
 from django.contrib.auth.decorators import login_required
 from .filters import DateFilter
 from django.core.paginator import Paginator
+import psycopg2
 # Create your views here.
 
 def home(request):
@@ -30,7 +31,7 @@ def atten(request):
         context['filtered_data'] = filtered_data
         context['val_1']=val_1
 
-        paginated_filtered_date = Paginator(filtered_data.qs,8)
+        paginated_filtered_date = Paginator(filtered_data.qs,10)
         page_number = request.GET.get('page')
         data_obj = paginated_filtered_date.get_page(page_number)
 
@@ -54,7 +55,7 @@ def show_all_data(request):
         context['filtered_data'] = filtered_data
         context['val_1']=val_1
 
-        paginated_filtered_date = Paginator(filtered_data.qs,8)
+        paginated_filtered_date = Paginator(filtered_data.qs,10)
         page_number = request.GET.get('page')
         data_obj = paginated_filtered_date.get_page(page_number)
 
@@ -101,6 +102,16 @@ def edit(request,pk):
 
     context = {'form':form}
     return render(request,'edit.html',context)
+
+def create(request):
+    form = employee_data_Form()
+    if request.method == 'POST':
+        form = employee_data_Form(request.POST,request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('show_all_data')
+    context = {'form': form}
+    return render(request,'create.html',context)
 
 @login_required(login_url='user_login')
 def delete(request,pk):
@@ -173,7 +184,7 @@ def signin(request):
                 return render(request, 'index.html')
     return render(request, 'signin.html')
 
-@login_required(login_url='signin')
+@login_required(login_url='user_login')
 def user_data(request):
     data = Register.objects.all()
     return render(request,'list.html',{'data':data})

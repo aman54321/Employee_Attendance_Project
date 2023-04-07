@@ -58,14 +58,6 @@
           </a>
         </li>
         <li>
-          <button style="border:none;background:white" onclick="tableToCSV()" class="nav-link px-3">
-            <span class="me-2">
-              <i class="bi bi-arrow-down nav1"></i>
-            </span>
-            <span class="fw-bold nav1">Export Data</span>
-          </button>
-        </li>
-        <li>
           <a href="{% url 'user_data' %}" class="nav-link px-3">
             <span class="me-2">
               <i class="bi bi-clipboard2-data nav1"></i>
@@ -73,6 +65,23 @@
             <span class="fw-bold nav1">User List</span>
           </a>
         </li>
+        <li>
+          <a href="{% url 'create' %}" class="nav-link px-3">
+            <span class="me-2">
+              <i class="bi bi-clipboard2-data nav1"></i>
+            </span>
+            <span class="fw-bold nav1">Add User</span>
+          </a>
+        </li>
+        <li>
+          <button style="border:none;background:white" onclick="tableToCSV()" class="nav-link px-3">
+            <span class="me-2">
+              <i class="bi bi-arrow-down nav1"></i>
+            </span>
+            <span class="fw-bold nav1">Export Data</span>
+          </button>
+        </li>
+       
         
       </li>
         </li>
@@ -170,10 +179,10 @@
   var myBarChart = new Chart(ctxB, {
     type: 'bar',
     data: {
-      labels: ['Monday','Tuesday','Wednesday','Thursday','Friday'],
+      labels: ['1','2','3','4','5','6','7','8','9','10'],
       datasets: [{
         label: "Weekly Productivity",
-        data: [12, 19, 3, 5, 2],
+        data: [12, 19, 3, 5, 2, 7, 9, 3, 6, 10],
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',

@@ -60,14 +60,6 @@
             </a>
           </li>
           <li>
-            <button style="border:none;background-color:white" onclick="tableToCSV()" class="nav-link px-3">
-              <span class="me-2">
-                <i class="bi bi-arrow-down nav1"></i>
-              </span>
-              <span class="fw-bold nav1">Export Data</span>
-            </a>
-          </li>
-          <li>
             <a href="{% url 'user_data' %}" class="nav-link px-3">
               <span class="me-2">
                 <i class="bi bi-clipboard2-data nav1"></i>
@@ -75,6 +67,23 @@
               <span class="fw-bold nav1">User List</span>
             </a>
           </li>
+          <li>
+            <a href="{% url 'create' %}" class="nav-link px-3">
+              <span class="me-2">
+                <i class="bi bi-clipboard2-data nav1"></i>
+              </span>
+              <span class="fw-bold nav1">Add User</span>
+            </a>
+          </li>
+          <li>
+            <button style="border:none;background-color:white" onclick="tableToCSV()" class="nav-link px-3">
+              <span class="me-2">
+                <i class="bi bi-arrow-down nav1"></i>
+              </span>
+              <span class="fw-bold nav1">Export Data</span>
+            </a>
+          </li>
+         
           
         </li>
           </li>

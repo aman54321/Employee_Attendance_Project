@@ -13,12 +13,18 @@ class Employee(models.Model):
         return self.name
     
 class Register(models.Model):
-    username = models.CharField(max_length=20)
+    e_id = models.IntegerField(unique=True)
     name = models.CharField(max_length=20)
     email = models.CharField(max_length=20)
-    e_id = models.IntegerField(unique=True)
+    username = models.CharField(max_length=20)
     designation = models.CharField(max_length=20)
     password1 = models.CharField(max_length=15)
     password2 = models.CharField(max_length=15)
     def __str__(self):
         return self.username
+
+
+
+
+
+

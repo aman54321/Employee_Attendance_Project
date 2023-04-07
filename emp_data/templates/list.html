@@ -16,17 +16,7 @@
     </button>
     <div class="collapse navbar-collapse " id="navbarSupportedContent">
       <div style="padding-left:130px">
-      <form method="get" class="d-flex ms-auto">
-          <div class="input-group my-3 my-lg-0">
-                <input type="text" list="names" value="{{val_1.name}}" name="name" class="form-control-1" placeholder="Select Name">
-                <button type="submit" class="btn-3 ms-3">Search</button>
-                <datalist id="names">
-                  {% for i in data_obj%}
-                  <option value={{i.name}}>
-                      {% endfor %}
-              </datalist>  
-            </div>
-      </form>
+  
     </div>
     </div>
     <ul class="navbar-nav mb-2 mb-lg-0">
@@ -67,14 +57,6 @@
           </a>
         </li>
         <li>
-          <button style="border:none;background:white" onclick="tableToCSV()" class="nav-link px-3">
-            <span class="me-2">
-              <i class="bi bi-arrow-down nav1"></i>
-            </span>
-            <span class="fw-bold nav1">Export Data</span>
-          </button>
-        </li>
-        <li>
           <a href="{% url 'user_data' %}" class="nav-link px-3">
             <span class="me-2">
               <i class="bi bi-clipboard2-data nav1"></i>
@@ -82,6 +64,23 @@
             <span class="fw-bold nav1">User List</span>
           </a>
         </li>
+        <li>
+          <a href="{% url 'create' %}" class="nav-link px-3">
+            <span class="me-2">
+              <i class="bi bi-clipboard2-data nav1"></i>
+            </span>
+            <span class="fw-bold nav1">Add User</span>
+          </a>
+        </li>
+        <li>
+          <button style="border:none;background:white" onclick="tableToCSV()" class="nav-link px-3">
+            <span class="me-2">
+              <i class="bi bi-arrow-down nav1"></i>
+            </span>
+            <span class="fw-bold nav1">Export Data</span>
+          </button>
+        </li>
+        
         
       </li>
         </li>
@@ -99,7 +98,7 @@
         <div class="card text-white bg-black ">
           <div class="card-header fw-bold">Registered User</div>
           <div class="card-body">
-            <h3><i class="bi bi-person-circle"></i> 7</h3>
+            <h3><i class="bi bi-person-circle"></i> 4</h3>
           </div>
         </div>
       </div>
