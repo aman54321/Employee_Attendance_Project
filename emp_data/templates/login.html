@@ -4,12 +4,13 @@
 {% endblock title %}
 
 {% block content %}
+<body>
 <div class="logcontainer">
-    <h3 class="heading1">LOGIN YOUR ACCOUNT!!</h3>
+    <h3 class="heading1">LOGIN</h3>
 <form action="{% url 'user_login' %}" method="post">
     {% csrf_token %}
     {% if error_message  %}
-        <div style="color:rgb(255, 0, 0); background-color:rgb(211, 151, 151); margin-left: 8rem ; width:150px">
+        <div style="color:rgb(255, 0, 0); margin-left: 8rem ; width:150px">
         {{error_message}}
         </div>
         {% endif %}
@@ -24,4 +25,5 @@
     <button type="submit" class="btn">Log In</button>
   </form>
   </div>
+</body>
   {% endblock %}

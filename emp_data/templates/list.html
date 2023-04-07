@@ -1,41 +1,146 @@
-{% extends 'base.html' %}
+{% extends 'base1.html' %}
 {% block title %}
     <title>User List</title>
 {% endblock title %}
 
 {% block content %}
 {% load emp_extras%}
-<div class="main">
-<div class="col-md-12">
-    <h1 class="heading">User List</h1>
+<nav class="navbar navbar-expand-lg navbar fixed-top">
+  <div class="container-fluid">
+    <!-- Sidebar Trigger Start -->
+    <button class="navbar-toggler me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas"><span class="navbar-toggler-icon"></span></button>
+    <!-- Sidebar Trigger End -->
+    <a class="navbar-brand fw-bold navbar me-auto" href="#">ADMIN PANNEL</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse " id="navbarSupportedContent">
+      <div style="padding-left:130px">
+      <form method="get" class="d-flex ms-auto">
+          <div class="input-group my-3 my-lg-0">
+                <input type="text" list="names" value="{{val_1.name}}" name="name" class="form-control-1" placeholder="Select Name">
+                <button type="submit" class="btn-3 ms-3">Search</button>
+                <datalist id="names">
+                  {% for i in data_obj%}
+                  <option value={{i.name}}>
+                      {% endfor %}
+              </datalist>  
+            </div>
+      </form>
+    </div>
+    </div>
+    <ul class="navbar-nav mb-2 mb-lg-0">
+      <button class="btn-3 ms-3"><a style="text-decoration:none; color:black" href="{% url 'user_login' %}">Logout</a></button>
+</ul>
+  </div>
+</nav>
+<!-- Navbar End -->
+<!-- Sidebar Start -->
+<div class="offcanvas offcanvas-start bg- text-white side-bar"  tabindex="-1" id="offcanvas" aria-labelledby="offcanvas">
+  <div class="offcanvas-body p-0">
+    <nav class="navbar-">
+      <ul class="navbar-nav">
+        <li>
+          <a href="{% url 'show' %}" class="nav-link px-3 active">
+            <span class="me-2">
+              <i class="bi bi-house-door-fill nav1"></i>
+            </span>
+            <span class="fw-bold nav1">Home</span>
+          </a>
+        </li>
+          <li>
+          <a href="{% url 'show_all_data' %}" class="nav-link px-3">
+            <span class="me-2">
+              <i class="bi bi-clipboard2-data-fill nav1"></i>
+            </span>
+            <span class="fw-bold nav1">View Data</span>
+          </a>
+        </li>
+       
+        
+        <li>
+          <a href="#" class="nav-link px-3">
+            <span class="me-2">
+              <i class="bi bi-activity nav1"></i>
+            </span>
+            <span class="fw-bold nav1">Attendance</span>
+          </a>
+        </li>
+        <li>
+          <button style="border:none;background:white" onclick="tableToCSV()" class="nav-link px-3">
+            <span class="me-2">
+              <i class="bi bi-arrow-down nav1"></i>
+            </span>
+            <span class="fw-bold nav1">Export Data</span>
+          </button>
+        </li>
+        <li>
+          <a href="{% url 'user_data' %}" class="nav-link px-3">
+            <span class="me-2">
+              <i class="bi bi-clipboard2-data nav1"></i>
+            </span>
+            <span class="fw-bold nav1">User List</span>
+          </a>
+        </li>
+        
+      </li>
+        </li>
+      </ul>
+    </nav>
+  </div>
 </div>
-<button class="btn-4"><a class="link" href="{% url 'show_all_data' %}">HOME</a></button>
-<div class="container_1">
+<main class="mt-5 pt-3">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 fw-bold fs-3">RECORD</div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-md-3 mb-3">
+        <div class="card text-white bg-black ">
+          <div class="card-header fw-bold">Registered User</div>
+          <div class="card-body">
+            <h3><i class="bi bi-person-circle"></i> 7</h3>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  <div class="row mt-2">
+  <div class="col-md-12">
+    <div class="card-table" style="width:90%">
+      <div class="card-header">
+        Record
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table id="example" class="table data-table" style="width:100%">
+            <thead>
+              <tr>
+                <th scope="col">Employee Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">E-Mail</th>
+                <th scope="col">Designation</th>
+                <th scope="col">User Name</th>
+              </tr>
+            </thead>
+                {% for k in data %}
+                <tbody>
+                    <tr>
+                        <td>{{ k.e_id }}</td>
+                        <td>{{ k.name }}</td>
+                        <td>{{ k.email}}</td>
+                        <td>{{ k.designation}}</td>
+                        <td>{{ k.username}}</td>
+                    </tr>
+                  </tbody>
+                  {% endfor %}
+        </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</main>
 
-    <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Employee Id</th>
-        <th scope="col">Name</th>
-        <th scope="col">E-Mail</th>
-        <th scope="col">Designation</th>
-        <th scope="col">User Name</th>
-      </tr>
-    </thead>
-        {% for k in data %}
-        <tbody>
-            <tr>
-                <td>{{ k.e_id }}</td>
-                <td>{{ k.name }}</td>
-                <td>{{ k.email}}</td>
-                <td>{{ k.designation}}</td>
-                <td>{{ k.username}}</td>
-                
-            </tr>
-        </tbody>
-        {% endfor %}
-  </table>
-
-</div>
-</div>
 {% endblock %}

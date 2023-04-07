@@ -1,0 +1,222 @@
+
+{% extends 'base1.html' %}
+{% block title %}
+    <title>Data</title>
+{% endblock title %}
+
+{% block content %}
+<body>
+<!-- Navbar Start -->
+<nav class="navbar navbar-expand-lg navbar fixed-top">
+  <div class="container-fluid">
+    <!-- Sidebar Trigger Start -->
+    <button class="navbar-toggler me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas"><span class="navbar-toggler-icon"></span></button>
+    <!-- Sidebar Trigger End -->
+    <a class="navbar-brand fw-bold navbar me-auto" href="#">ADMIN PANNEL</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse " id="navbarSupportedContent">
+      <div style="padding-left:130px">
+      <form method="get" class="d-flex ms-auto">
+          <div class="input-group my-3 my-lg-0">
+                <input type="text" list="names" value="{{val_1.name}}" name="name" class="form-control-1" placeholder="Select Name">
+                <button type="submit" class="btn-3 ms-3">Search</button>
+                <datalist id="names">
+                  {% for i in data_obj%}
+                  <option value={{i.name}}>
+                      {% endfor %}
+              </datalist>  
+            </div>
+            <div class="input-group my-3 my-lg-0">
+                <input type="text"  value="{{val_1.date}}" name="date" class="form-control-1 n" placeholder="Search By date">
+                <button type="submit" class="btn-3 ms-3">Search</button>
+            </div>
+      </form>
+    </div>
+    </div>
+    <ul class="navbar-nav mb-2 mb-lg-0">
+      <button class="btn-3 ms-3"><a style="text-decoration:none; color:black" href="{% url 'user_login' %}">Logout</a></button>
+</ul>
+  </div>
+</nav>
+<!-- Navbar End -->
+<!-- Sidebar Start -->
+<div class="offcanvas offcanvas-start bg- text-white side-bar"  tabindex="-1" id="offcanvas" aria-labelledby="offcanvas">
+  <div class="offcanvas-body p-0">
+    <nav class="navbar-">
+      <ul class="navbar-nav">
+        <li>
+          <a href="{% url 'show' %}" class="nav-link px-3 active">
+            <span class="me-2">
+              <i class="bi bi-house-door-fill nav1"></i>
+            </span>
+            <span class="fw-bold nav1">Home</span>
+          </a>
+        </li>
+          <li>
+          <a href="{% url 'show_all_data' %}" class="nav-link px-3">
+            <span class="me-2">
+              <i class="bi bi-clipboard2-data-fill nav1"></i>
+            </span>
+            <span class="fw-bold nav1">View Data</span>
+          </a>
+        </li>
+       
+        
+        <li>
+          <a href="#" class="nav-link px-3">
+            <span class="me-2">
+              <i class="bi bi-activity nav1"></i>
+            </span>
+            <span class="fw-bold nav1">Attendance</span>
+          </a>
+        </li>
+        <li>
+          <button style="border:none;background-color:white" onclick="tableToCSV()" class="nav-link px-3">
+            <span class="me-2">
+              <i class="bi bi-arrow-down nav1"></i>
+            </span>
+            <span class="fw-bold nav1">Export Data</span>
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'user_data' %}" class="nav-link px-3">
+            <span class="me-2">
+              <i class="bi bi-clipboard2-data nav1"></i>
+            </span>
+            <span class="fw-bold nav1">User List</span>
+          </a>
+        </li>
+        
+      </li>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+<!-- Sidebar End -->
+<!-- Main Content Start -->
+<main class="mt-5 pt-3">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 fw-bold fs-3">RECORD</div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-md-3 mb-3">
+        <div class="card text-white bg-black ">
+          <div class="card-header fw-bold">Management</div>
+          <div class="card-body">
+            <h3><i class="bi bi-person-circle"></i> 30</h3>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3">
+        <div class="card text-white bg-black ">
+          <div class="card-header fw-bold">Development Team</div>
+          <div class="card-body">
+            <h3><i class="bi bi-person-circle"></i>  40</h3>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3">
+        <div class="card text-white bg-black">
+          <div class="card-header fw-bold">Design Team</div>
+          <div class="card-body">
+            <h3><i class="bi bi-person-circle"></i>  40</h3>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3">
+        <div class="card text-white bg-black">
+          <div class="card-header fw-bold">Interns</div>
+          <div class="card-body">
+            <h3><i class="bi bi-person-circle"></i>  25</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row mt-2">
+      <div class="col-md-12">
+        <div class="card-table">
+          <div class="card-header">
+            Record
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table id="example" class="table data-table" style="width:100%">
+                <thead>
+                  <tr>
+                    <th scope="col">Employee Id</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Check-In</th>
+                    <th scope="col">Check-Out</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                  </tr>
+                </thead>
+                    {% for i in data_obj %}
+                    <tbody>
+                        <tr>
+                            <td>{{ i.emp_id }}</td>
+                            <td>{{ i.name }}</td>
+                            <td>{{ i.date|date:'d-m-y'}}</td>
+                            <td>{{ i.check_in}}</td>
+                            <td>{{ i.check_out}}</td>
+                            <td> <button class="btn-2"><a class="links" href="{% url 'edit' i.pk %}">Edit</a></button>
+                            </td>
+                            <td> <button class="btn-2"><a class="links" href="{% url 'delete' i.pk %}">Remove</a></button></td>
+                        </tr>
+                      </tbody>
+                      {% endfor %}
+            </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+  </div>
+  
+</main>
+
+<!-- Main Content End -->
+<!-- Scripts Start -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.2/dist/chart.min.js"></script>
+<script src="static/js/script.js"></script>
+<script>
+    function tableToCSV() {
+        var csv_data = [];
+        var rows = document.getElementsByTagName('tr');
+        for (var i = 0; i < rows.length; i++) {
+            var cols = rows[i].querySelectorAll('td,th');
+            var csvrow = [];
+            for (var j = 0; j < cols.length-2; j++) { 
+                csvrow.push(cols[j].innerHTML);
+            }
+            csv_data.push(csvrow.join(","));
+        }
+        csv_data = csv_data.join('\n');
+        downloadCSVFile(csv_data);
+    }
+    function downloadCSVFile(csv_data) {
+        CSVFile = new Blob([csv_data], {
+            type: "text/csv"
+        });
+        var temp_link = document.createElement('a');
+        temp_link.download = "data.csv";
+        var url = window.URL.createObjectURL(CSVFile);
+        temp_link.href = url;
+        temp_link.style.display = "none";
+        document.body.appendChild(temp_link);
+        temp_link.click();
+        document.body.removeChild(temp_link);
+    }
+   
+</script>
+<!-- Scripts End -->
+</body>
+{%endblock%}

@@ -12,6 +12,10 @@ def home(request):
     return render(request,'login.html')
 
 @login_required(login_url='user_login')
+def show(request):
+    return render(request,'index.html')
+
+@login_required(login_url='user_login')
 def show_all_data(request):
     context = {}
     if request.method=='GET':
@@ -32,7 +36,7 @@ def show_all_data(request):
 
         context['data_obj'] = data_obj
 
-    return render(request, 'index.html', context=context)
+    return render(request, 'data.html', context=context)
 
 
 def user_login(request):
@@ -51,7 +55,7 @@ def user_login(request):
         if user is not None:
             login(request,user) 
             messages.success(request, "Successfully Logged In")
-            return redirect('show_all_data')
+            return redirect('show')
         else:
             data={
                 'error_message': error_Msg,
@@ -142,7 +146,7 @@ def signin(request):
         x = Register.objects.all().filter(email=e_mail,username=uname,password1=pwd)
         for i in x:
             if i.email == e_mail and i.username == uname and i.password1 == pwd:
-                return render(request, 'abc.html')
+                return render(request, 'index.html')
     return render(request, 'signin.html')
 
 @login_required(login_url='signin')

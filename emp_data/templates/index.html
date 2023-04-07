@@ -1,96 +1,208 @@
-{% extends 'base.html' %}
+
+{% extends 'base1.html' %}
 {% block title %}
-    <title>Employee Information</title>
+    <title>Home</title>
 {% endblock title %}
-
 {% block content %}
-{% load emp_extras%}
-<div class="main">
-<h1 class="heading">Employee Information</h1>
-<button class="btn-3"><a class="link" href="{% url 'logout' %}">Log Out</a></button><br><br>
-
-<form method="get">
-    <div class="row">
-    <div class="col-5">
-        <label for="name" class="form-label-1">Name:</label>
-        <input type="name" value="{{val_1.name}}"  name="name" placeholder="Search By Name..." class="form-control-2">  
-        <button type="submit" class="btn-1 ms-2">Search</button>
-        <datalist id="names">
-            {% for i in data_obj%}
-            <option value={{i.name}}>
-                {% endfor %}
-        </datalist>  
-    </div>
-    <div class="col-7 con1">
-        <button class="btn-1"><a class="link" href="{% url 'show_all_data' %}">View Data</a></button>
-        <button class="btn-1 ms-2" onclick="tableToCSV()">Export Data</button><br><br>
+<body>
+<!-- Navbar Start -->
+<nav class="navbar navbar-expand-lg navbar fixed-top">
+  <div class="container-fluid">
+    <!-- Sidebar Trigger Start -->
+    <button class="navbar-toggler me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas"><span class="navbar-toggler-icon"></span></button>
+    <!-- Sidebar Trigger End -->
+    <a class="navbar-brand fw-bold navbar me-auto" href="#">ADMIN PANNEL</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse " id="navbarSupportedContent">
+      <div style="padding-left:130px">
+      
     </div>
     </div>
-    <div class="row">
-        <div class="col-8">
-        <label for="date" class="form-label-1">Date:</label>
-        <input type="date" value="{{val_1.date}}" name="date" class="form-control-2">  
-        <button type="submit" class="btn-1 ms-2">Search</button>
-        </div>  
-        <div class="col-4 con2">
-            <button class="btn-1"><a class="link" href="{% url 'user_data' %}">User List</a></button>
-        </div>
-    </div>
-
-</form>
-
-<div class="container_1">
-    <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Employee Id</th>
-        <th scope="col">First Name</th>
-        <th scope="col">Date</th>
-        <th scope="col">Check-In</th>
-        <th scope="col">Check-Out</th>
-        <th scope="col">Edit</th>
-        <th scope="col">Delete</th>
-      </tr>
-    </thead>
-        {% for i in data_obj %}
-        <tbody>
-            <tr>
-                <td>{{ i.emp_id }}</td>
-                <td>{{ i.name }}</td>
-                <td>{{ i.date|date:'d-m-y'}}</td>
-                <td>{{ i.check_in}}</td>
-                <td>{{ i.check_out}}</td>
-                <td> <button class="btn-2"><a class="links" href="{% url 'edit' i.pk %}">Edit</a></button>
-                </td>
-                <td> <button class="btn-2"><a class="links" href="{% url 'delete' i.pk %}">Remove</a></button></td>
-            </tr>
-        </tbody>
-        {% endfor %}
-  </table>
-</div><br>
-<div class="pagination">
-    <span class="step-links">
-        {% if data_obj.has_previous %}
-            <a class="page" href="{% my_url data_obj.previous_page_number 'page' request.GET.urlencode %}"> Previous</a>
-            {% else %}
-            <a class="page" href="#" tabindex="-1" aria-disabled="True">Previous</a>
-            {% endif %}
-
-            <span class="current">
-                Page {{data_obj.number}} of {{data_obj.paginator.num_pages}}
+    <ul class="navbar-nav mb-2 mb-lg-0">
+      <button class="btn-3 ms-3"><a style="text-decoration:none; color:black" href="{% url 'user_login' %}">Logout</a></button>
+</ul>
+  </div>
+</nav>
+<!-- Navbar End -->
+<!-- Sidebar Start -->
+<div class="offcanvas offcanvas-start bg- text-white side-bar"  tabindex="-1" id="offcanvas" aria-labelledby="offcanvas">
+  <div class="offcanvas-body p-0">
+    <nav class="navbar-">
+      <ul class="navbar-nav">
+        <li>
+          <a href="{% url 'show' %}" class="nav-link px-3 active">
+            <span class="me-2">
+              <i class="bi bi-house-door-fill nav1"></i>
             </span>
+            <span class="fw-bold nav1">Home</span>
+          </a>
+        </li>
+          <li>
+          <a href="{% url 'show_all_data' %}" class="nav-link px-3">
+            <span class="me-2">
+              <i class="bi bi-clipboard2-data-fill nav1"></i>
+            </span>
+            <span class="fw-bold nav1">View Data</span>
+          </a>
+        </li>
+       
+        
+        <li>
+          <a href="#" class="nav-link px-3">
+            <span class="me-2">
+              <i class="bi bi-activity nav1"></i>
+            </span>
+            <span class="fw-bold nav1">Attendance</span>
+          </a>
+        </li>
+        <li>
+          <button style="border:none;background:white" onclick="tableToCSV()" class="nav-link px-3">
+            <span class="me-2">
+              <i class="bi bi-arrow-down nav1"></i>
+            </span>
+            <span class="fw-bold nav1">Export Data</span>
+          </button>
+        </li>
+        <li>
+          <a href="{% url 'user_data' %}" class="nav-link px-3">
+            <span class="me-2">
+              <i class="bi bi-clipboard2-data nav1"></i>
+            </span>
+            <span class="fw-bold nav1">User List</span>
+          </a>
+        </li>
+        
+      </li>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+<!-- Sidebar End -->
+<!-- Main Content Start -->
+<main class="mt-5 pt-3">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 fw-bold fs-3">RECORD</div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-md-3 mb-3">
+        <div class="card text-white bg-black ">
+          <div class="card-header fw-bold">Management</div>
+          <div class="card-body">
+            <h3><i class="bi bi-person-circle"></i> 30</h3>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3">
+        <div class="card text-white bg-black ">
+          <div class="card-header fw-bold">Development Team</div>
+          <div class="card-body">
+            <h3><i class="bi bi-person-circle"></i>  40</h3>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3">
+        <div class="card text-white bg-black">
+          <div class="card-header fw-bold">Design Team</div>
+          <div class="card-body">
+            <h3><i class="bi bi-person-circle"></i>  40</h3>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mb-3">
+        <div class="card text-white bg-black">
+          <div class="card-header fw-bold">Interns</div>
+          <div class="card-body">
+            <h3><i class="bi bi-person-circle"></i>  25</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-md-6">
+        <div class="card-chart">
+          <div class="card-header">Attendance Overview</div>
+          <div class="card-body">
+            <canvas id="pieChart" width="400" height="200"></canvas>
+          </div>
+        </div>
+      </div>
+   
+      <div class="col-md-6">
+        <div class="card-chart">
+          <div class="card-header">Productivity</div>
+          <div class="card-body">
+            <canvas id="barChart" width="400" height="200"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  
+</main>
 
-        {% if data_obj.has_next %}
-            <a class="page" href="{% my_url data_obj.next_page_number 'page' request.GET.urlencode %}"> Next</a>
-            {% else %}
-            <a class="page" href="#" tabindex="-1" aria-disabled="True">Next</a>
-        {% endif %}
-    </span>
-  </div>    
-</div>
-</div>
+<!-- Main Content End -->
+<!-- Scripts Start -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.2/dist/chart.min.js"></script>
+<script src="static/js/script.js"></script>
 <script>
-
+  var ctxP = document.getElementById("pieChart").getContext('2d');
+  var myPieChart = new Chart(ctxP, {
+    type: 'pie',
+    data: {
+      labels: ['Interns','Development Team', 'Designing Team','Management'],
+      datasets: [{
+        data: [25, 40, 40 , 30],
+        backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1", "#4D5360"],
+        hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5", "#616774"]
+      }]
+    },
+    options: {
+      responsive: true
+    }
+  });
+  var ctxB = document.getElementById("barChart").getContext('2d');
+  var myBarChart = new Chart(ctxB, {
+    type: 'bar',
+    data: {
+      labels: ['Monday','Tuesday','Wednesday','Thursday','Friday'],
+      datasets: [{
+        label: "Weekly Productivity",
+        data: [12, 19, 3, 5, 2],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255,99,132,1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
     function tableToCSV() {
         var csv_data = [];
         var rows = document.getElementsByTagName('tr');
@@ -120,4 +232,6 @@
     }
    
 </script>
-{% endblock %}
+<!-- Scripts End -->
+</body>
+{%endblock%}
