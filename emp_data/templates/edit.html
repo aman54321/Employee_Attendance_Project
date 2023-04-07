@@ -1,36 +1,125 @@
-{% extends 'base.html' %}
+{% extends 'base1.html' %}
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">                          
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 {% block title %}
     <title>Edit</title>
 {% endblock title %}
 {% block content %}
-<h1 class="heading">Edit Employee Information</h1>
-<div class="container">
-            <form action=""  method="POST">
-                {% csrf_token %}
-                    <div class="mb-3 form-col">
-                        <label for="From" class="form-label-1">Emp_id:</label>
-                        {{form.emp_id}}<br>
-                    </div>
-                    <div class="mb-3 form-col">
-                        <label for="From" class="form-label-1">Name:</label>
-                        {{form.name}}<br>
-                    </div>
-                    <div class="mb-3 form-col">
-                        <label for="From" class="form-label-1">Date:</label>
-                      {{form.date}}<br>
+</head>
+<nav class="navbar navbar-expand-lg navbar fixed-top">
+    <div class="container-fluid">
+      <!-- Sidebar Trigger Start -->
+      <button class="navbar-toggler me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas"><span class="navbar-toggler-icon"></span></button>
+      <!-- Sidebar Trigger End -->
+      <a class="navbar-brand fw-bold navbar me-auto" href="#">ADMIN PANNEL</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse " id="navbarSupportedContent">
+        <div style="padding-left:130px">
+      </div>
+      </div>
+      <ul class="navbar-nav mb-2 mb-lg-0">
+        <button class="btn-3 ms-3"><a style="text-decoration:none; color:black" href="{% url 'user_login' %}">Logout</a></button>
+  </ul>
+    </div>
+  </nav>
+  <!-- Navbar End -->
+  <!-- Sidebar Start -->
+  <div class="offcanvas offcanvas-start bg- text-white side-bar"  tabindex="-1" id="offcanvas" aria-labelledby="offcanvas">
+    <div class="offcanvas-body p-0">
+      <nav class="navbar-">
+        <ul class="navbar-nav">
+          <li>
+            <a href="{% url 'show' %}" class="nav-link px-3 active">
+              <span class="me-2">
+                <i class="bi bi-house-door-fill nav1"></i>
+              </span>
+              <span class="fw-bold nav1">Home</span>
+            </a>
+          </li>
+            <li>
+            <a href="{% url 'show_all_data' %}" class="nav-link px-3">
+              <span class="me-2">
+                <i class="bi bi-clipboard2-data-fill nav1"></i>
+              </span>
+              <span class="fw-bold nav1">View Data</span>
+            </a>
+          </li>
+         
+          
+          <li>
+            <a href="{% url 'atten' %}" class="nav-link px-3">
+              <span class="me-2">
+                <i class="bi bi-activity nav1"></i>
+              </span>
+              <span class="fw-bold nav1">Attendance</span>
+            </a>
+          </li>
+          <li>
+            <button style="border:none;background-color:white" onclick="tableToCSV()" class="nav-link px-3">
+              <span class="me-2">
+                <i class="bi bi-arrow-down nav1"></i>
+              </span>
+              <span class="fw-bold nav1">Export Data</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'user_data' %}" class="nav-link px-3">
+              <span class="me-2">
+                <i class="bi bi-clipboard2-data nav1"></i>
+              </span>
+              <span class="fw-bold nav1">User List</span>
+            </a>
+          </li>
+          
+        </li>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <main class="mt-5 pt-3">
+    <div class="container-fluid">
+        <div class="row mt-2">
+            <div class="col-md-6">
+              <div class="card-chart">
+                <div class="card-header">Edit Data</div>
+                <div class="card-body">
+                    <form action=""  method="POST">
+                        {% csrf_token %}
+                            <div class="mb-3 form-col">
+                                <label for="From" class="form-label-1">Emp_id:</label>
+                                {{form.emp_id}}<br>
+                            </div>
+                            <div class="mb-3 form-col">
+                                <label for="From" class="form-label-1">Name:</label>
+                                {{form.name}}<br>
+                            </div>
+                            <div class="mb-3 form-col">
+                                <label for="From" class="form-label-1">Date:</label>
+                              {{form.date}}<br>
+                              </div>
+                            <div class="mb-3 form-col">
+                              <label for="From" class="form-label-1">Check-In:</label>
+                                {{form.check_in}}<br>
+                            </div>
+                            <div class="mb-3 form-col">
+                                <label for="From" class="form-label-1">Check-Out:</label>
+                                 {{form.check_out}}
                       </div>
-                    <div class="mb-3 form-col">
-                      <label for="From" class="form-label-1">Check-In:</label>
-                        {{form.check_in}}<br>
-                    </div>
-                    <div class="mb-3 form-col">
-                        <label for="From" class="form-label-1">Check-Out:</label>
-                         {{form.check_out}}
+                        <button class="btn-1" type="submit">Submit</button><br><br>
+                            <a class="link" href="{% url 'show_all_data' %}"> <-- Go back</a>
+                        </form>        
+                </div>
               </div>
-                <button class="btn-1" type="submit">Submit</button><br><br>
-                    <a class="links" href="{% url 'show_all_data' %}"> <-- Go back</a>
-                </form>
-</div>
+            </div>
+        </div>
+    </div>
+</main>
 {% endblock content %}
 
 

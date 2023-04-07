@@ -16,6 +16,30 @@ def show(request):
     return render(request,'index.html')
 
 @login_required(login_url='user_login')
+def atten(request):
+    context = {}
+    if request.method=='GET':
+        name = request.GET.get('name', '')
+        date = request.GET.get('date', '')
+        val_1={'name':name,'date':date}
+        filtered_data = DateFilter(
+            request.GET,
+            queryset = Employee.objects.all()
+        )
+        
+        context['filtered_data'] = filtered_data
+        context['val_1']=val_1
+
+        paginated_filtered_date = Paginator(filtered_data.qs,8)
+        page_number = request.GET.get('page')
+        data_obj = paginated_filtered_date.get_page(page_number)
+
+        context['data_obj'] = data_obj
+
+    return render(request, 'attendance.html', context=context)
+    
+
+@login_required(login_url='user_login')
 def show_all_data(request):
     context = {}
     if request.method=='GET':
