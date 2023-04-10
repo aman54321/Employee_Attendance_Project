@@ -5,7 +5,9 @@
 
 {% block content %}
 <body>
+  <button class="btn-3 ms-3"><a style="text-decoration:none; color:black" href="{% url 'user_register' %}">Register here</a></button>
 <div class="logcontainer">
+  
     <h3 class="heading1">LOGIN</h3>
 <form action="{% url 'user_login' %}" method="post">
     {% csrf_token %}
@@ -15,8 +17,8 @@
         </div>
         {% endif %}
     <div class="mb-3">
-      <label for="username" class="form-label">User Name</label>
-      <input type="text" value="{{vals.username}}" class="form-control" name="uname" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">   
+      <label for="username" class="form-label">Email</label>
+      <input type="text" value="{{vals.email}}" class="form-control" name="email" placeholder="Email" aria-label="Username" aria-describedby="basic-addon1">   
     <div class="mb-3">
       <label for="exampleInputPassword1" class="form-label">Password</label>
       <input type="password" name="pwd" class="form-control" placeholder="Password" id="exampleInputPassword1">

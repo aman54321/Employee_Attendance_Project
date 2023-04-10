@@ -84,7 +84,7 @@ WSGI_APPLICATION = "attendance.wsgi.application"
 DATABASES = {
    'default': {
        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-       'NAME':'attendance_db',
+       'NAME':'attendance',
        'USER': 'postgres',
        'PASSWORD': 'King#123',
        'HOST': 'localhost',
@@ -132,3 +132,5 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+AUTH_USER_MODEL = "emp_data.CustomUser"

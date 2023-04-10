@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}
+    <title>Sign Up</title>
+{% endblock title %}
+{% block content %}
+<div class="container">
+    <h1 class="heading">Register Yourself</h1>
+<form class="row g-3 sign" action="register" method="POST">
+    {% csrf_token %}
+    {% if error  %}
+        <div style="color:rgb(255, 0, 0); background-color:rgb(211, 151, 151); margin-left: 7rem ; width:150px">
+        {{error}}
+        </div>
+        {% endif %}
+    <div class="col-12">
+      <label for="inputEmail1" class="form-label">Email</label>
+      <input type="email" name="email" value="{{values.email}}" class="form-control" id="inputEmail1" placeholder="Email">
+    </div>
+    
+   
+    <div class="col-md-12">
+      <label for="inputPassword4" class="form-label">Password</label>
+      <input type="password" name="password1" class="form-control" id="inputPassword4" placeholder="Password">
+    </div>
+    <div class="col-md-12">
+        <label for="inputPassword4" class="form-label">Confirm Password</label>
+        <input type="password" name="password2" class="form-control" id="inputPassword4" placeholder="Confirm Password">
+    </div>
+    <div class="col-md-12">
+        <input type="checkbox" id="staff" name="Is staff">
+        <label for="vehicle1"> Is staff</label><br>
+        </div>
+        <div class="col-md-12">
+    
+        <input type="checkbox" id="active" name="Is active">
+        <label for="vehicle2"> Is active</label><br>
+    </div>
+    
+
+    <button type="submit" class="btn">Sign Up</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
+
+
+
+
+
+
+
