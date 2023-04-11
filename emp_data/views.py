@@ -239,7 +239,7 @@ def signin(request):
 @login_required(login_url='user_login')
 # @user_passes_test(lambda u: u.groups.filter(name='SuperUser').exists())
 def user_data(request):
-    data = Register.objects.all()
+    data = CustomUser.objects.all()
     return render(request,'list.html',{'data':data})
 
 
