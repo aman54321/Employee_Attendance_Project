@@ -14,5 +14,7 @@ urlpatterns = [
     path("delete/<int:pk>",views.delete,name='delete'),
     path("logout",views.logout,name='logout'),
     path('register', views.user_register, name='user_register'),
-    path('show1', views.show1, name='show1')
+    path('show1', views.show1, name='show1'),
+    path('accept/<int:pk>', views.accept, name='accept'),
+    path('decline/<int:pk>', views.decline, name='decline')
 ]

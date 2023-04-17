@@ -102,7 +102,7 @@ def user_register(request):
         # elif password1 != password2:
         #     errorMsg="password do not match"
         # if not errorMsg:
-        myuser = CustomUser.objects.create_user(email, password1, is_staff = False, is_active = True)
+        myuser = CustomUser.objects.create_user(email, password1, is_staff = False, is_active = False)
         myuser.save()
         return redirect('user_login')
     # else:
@@ -128,16 +128,24 @@ def user_login(request):
             error_Msg="Password is Required"
         elif user is None:
             error_Msg="Incorrect email/Password"
-        if user is not None:
+        # elif user.is_active == False:
+        #     error_Msg = "Please call admin to authenticate you"
+        if user is not None and request.user.is_active:
             login(request,user) 
             messages.success(request, "Successfully Logged In")
             return redirect('show')
+        elif user is not request.user.is_active:
+            return HttpResponse("Your request is declined by user, please contact admin")
         else:
-            data={
-                'error_message': error_Msg,
-                'vals':val
-                }
-            return render(request, 'login.html', data)
+            print('no login')
+            # return render(request, 'login.html')
+            return HttpResponse("Please wait, Your signup request is not approved by admin")
+        # else:
+        #     data={
+        #         'error_message': error_Msg,
+        #         'vals':val
+        #         }
+        #     return render(request, 'login.html', data)
     return render(request, 'login.html')
 
 @login_required(login_url='user_login')
@@ -244,5 +252,15 @@ def user_data(request):
 
 
 
+def accept(request,pk):
+    data1 = CustomUser.objects.get(pk=pk)
+    data1.is_active = True
+    data1.save()
+    return redirect('user_data')
 
 
+def decline(request,pk):
+    data1 = CustomUser.objects.get(pk=pk)
+    data1.is_active = False
+    data1.save()
+    return redirect('user_data')

@@ -120,26 +120,38 @@
                 <th scope="col">E-Mail</th>
                 <!-- <th scope="col">Designation</th> -->
                 <!-- <th scope="col">User Name</th> -->
-                <!-- <th scope="col">Action</th> -->
+                <th scope="col">Action</th>
+                <th scope="col">Mode</th>
               </tr>
             </thead>
-                {% for k in data %}
+                
                 <tbody>
+                  {% for k in data %}
                     <tr>
                         <!-- <td>{{ k.e_id }}</td> -->
                         <!-- <td>{{ k.name }}</td> -->
                         <td>{{ k.email}}</td>
                         <!-- <td>{{ k.designation}}</td> -->
                         <!-- <td>{{ k.username}}</td> -->
-                        <!-- <td>
-                          <label class="switch">
-                            <input type="checkbox">
-                            <span class="slider round"></span>
-                          </label>
-                        </td> -->
+          
+                    
+                    
+                        <td> <button type="button" class="btn btn-success"><a class="links" href="{% url 'accept' k.pk %}">Accept</a></button>
+                        <button type="button" class="btn btn-danger"><a class="links" href="{% url 'decline' k.pk %}">Decline</a></button>
+                        </td>
+                        <td>
+                          {% if accept %}
+                            Accepted
+                          {% endif %}
+                          {% if decline %}
+                            Declined
+                          {% endif %}
+
+                        </td>
                     </tr>
+                    {% endfor %}
                   </tbody>
-                  {% endfor %}
+                  
         </table>
         </div>
       </div>
